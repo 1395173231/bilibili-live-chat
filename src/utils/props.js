@@ -15,6 +15,10 @@ export const defaultProps = {
   delay: '',
   blockUID: '',
   debug: '',
+  deeplToken: '',
+  translateFrom: '',
+  corsProxyUrl: '',
+  translateTo: 'PT-BR',
 };
 Object.freeze(defaultProps);
 

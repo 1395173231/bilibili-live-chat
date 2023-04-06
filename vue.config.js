@@ -33,4 +33,15 @@ module.exports = {
       },
     });
   },
+  devServer: {
+    proxy: {
+      '/translate': {
+        target: 'https://api-free.deepl.com/v2/translate',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/translate': '',
+        },
+      },
+    },
+  },
 };

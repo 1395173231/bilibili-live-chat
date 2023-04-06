@@ -19,6 +19,10 @@ import { setFace } from '@/utils/face';
 
 import DanmakuList from '@/components/DanmakuList';
 
+// const deepl = require('deepl-node')
+// import * as deepl from 'deepl-node';
+import { translate } from '@/utils/request';
+
 export default {
   components: { DanmakuList },
   props: propsType,
@@ -104,10 +108,21 @@ export default {
       });
 
       // 弹幕
-      live.on('DANMU_MSG', ({ info: [, message, [uid, uname, isOwner /*, isVip, isSvip*/]] }) => {
+      live.on('DANMU_MSG', async ({ info: [, message, [uid, uname, isOwner /*, isVip, isSvip*/]] }) => {
         if (isBlockedUID(uid)) {
           console.log(`屏蔽了来自[${uname}]的弹幕：${message}`);
           return;
+        }
+        if (props.deeplToken) {
+          localStorage._token = `DeepL-Auth-Key ${props.deeplToken}`;
+          let translate_msg = await translate(
+            'zh' && props.translateFrom,
+            'en' && props.translateTo,
+            message,
+            props.corsProxyUrl
+          );
+          message += '    ' + props.translateTo + ':' + translate_msg.translations[0].text;
+          // message = await translate("zh"&&props.translateFrom,'en'&&props.translateTo,message)
         }
         const danmaku = {
           type: 'message',
@@ -123,15 +138,26 @@ export default {
       });
 
       // SC
-      live.on('SUPER_CHAT_MESSAGE', fullData => {
+      live.on('SUPER_CHAT_MESSAGE', async fullData => {
         console.log('SUPER_CHAT_MESSAGE', fullData);
-        const {
+        let {
           data: {
             uid,
             user_info: { uname },
             message,
           },
         } = fullData;
+        if (props.deeplToken) {
+          localStorage._token = `DeepL-Auth-Key ${props.deeplToken}`;
+          let translate_msg = await translate(
+            'zh' && props.translateFrom,
+            'en' && props.translateTo,
+            message,
+            props.corsProxyUrl
+          );
+          message += '/' + props.translateTo + ':' + translate_msg.translations[0].text;
+          // message = await translate("zh"&&props.translateFrom,'en'&&props.translateTo,message)
+        }
         giftList.value.addDanmaku({
           type: 'sc',
           showFace: props.face !== 'false',

@@ -136,6 +136,14 @@
           v-model="form.blockUID"
         />
       </input-group>
+      <input-group header="cors-proxy-url" footer="">
+        <input class="form-control" type="text" placeholder="选填，cors-proxy-url" v-model="form.corsProxyUrl" />
+      </input-group>
+      <input-group header="deeplToken" footer="">
+        <input class="form-control" type="text" placeholder="选填，翻译api Token" v-model="form.deeplToken" />
+        <input class="form-control" type="text" placeholder="选填，翻译api from" v-model="form.translateFrom" />
+        <input class="form-control" type="text" placeholder="选填，翻译api to" v-model="form.translateTo" />
+      </input-group>
     </div>
   </div>
 </template>
