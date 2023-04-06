@@ -22,3 +22,4 @@ jobs:
         with:
           branch: dist # 部署后提交到那个分支
           folder: dist # 这里填打包好的目录名称
+          token: ${{ secrets.DEPLOY_KEY }}
