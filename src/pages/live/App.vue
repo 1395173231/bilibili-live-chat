@@ -1,18 +1,28 @@
 <template>
-  <el-dropdown @command="changeLang" class="el-dropdown">
-    <span class="el-dropdown-link" style="font-size: 15px; display: inline-block; margin-left: auto">
-      language<el-icon class="el-icon--right"><arrow-down /></el-icon>
-    </span>
-    <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item :disabled="language === 'zh'" command="zh"> 中文 </el-dropdown-item>
-        <el-dropdown-item :disabled="language === 'en'" command="en"> English </el-dropdown-item>
-        <el-dropdown-item :disabled="language === 'pt-br'" command="ptBr"> Português (Brasil) </el-dropdown-item>
-      </el-dropdown-menu>
-    </template>
-  </el-dropdown>
-  <danmaku-item v-if="errMsg" type="info" :message="errMsg" />
-  <live v-else-if="ready" v-bind="props" />
+  <el-container>
+    <el-container>
+      <el-main>
+        <danmaku-item v-if="errMsg" type="info" :message="errMsg" />
+        <live v-else-if="ready" v-bind="props" />
+      </el-main>
+    </el-container>
+    <el-aside width="200px">
+      <el-header>
+        <el-dropdown @command="changeLang" class="el-dropdown">
+          <span class="el-dropdown-link" style="font-size: 15px; display: inline-block; margin-left: auto">
+            language<el-icon class="el-icon--right"><arrow-down /></el-icon>
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item :disabled="language === 'zh'" command="zh"> 中文 </el-dropdown-item>
+              <el-dropdown-item :disabled="language === 'en'" command="en"> English </el-dropdown-item>
+              <el-dropdown-item :disabled="language === 'pt-br'" command="ptBr"> Português (Brasil) </el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </el-header>
+    </el-aside>
+  </el-container>
 </template>
 
 <script>
@@ -96,6 +106,12 @@ export default defineComponent({
 <style>
 html,
 body,
+.el-container {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
 #app {
   margin: 0;
   padding: 0;
