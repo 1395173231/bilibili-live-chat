@@ -1,6 +1,7 @@
 import { parse as qsp } from 'query-string';
 import { mapValues, pick } from 'lodash';
-
+import { $lang } from '@/i18n/i18n.js';
+import { reactive } from 'vue';
 export const defaultProps = {
   room: '',
   anchor: '',
@@ -38,47 +39,49 @@ Object.freeze(intPropsDefault);
 export const propsType = mapValues(defaultProps, (v, k) => (intPropsSet.has(k) ? Number : String));
 Object.freeze(propsType);
 
-export const selectOptions = {
-  cors: [
-    {
-      value: 'false',
-      text: '关闭（所有跨域请求将依赖 codetabs，限制 5 请求/秒）',
-    },
-    {
-      value: 'true',
-      text: '开启（请阅读右侧说明）',
-    },
-  ],
-  face: [
-    {
-      value: 'false',
-      text: '不显示',
-    },
-    {
-      value: 'gift',
-      text: '仅对礼物显示，不需要额外调用 API',
-    },
-    {
-      value: 'true',
-      text: '显示，通过 Bilibili API 获取（跨域）',
-    },
-    {
-      value: 'imjad',
-      text: '显示，通过 HibiAPI 获取',
-    },
-  ],
-  display: [
-    {
-      value: 'bottom',
-      text: '自底部',
-    },
-    {
-      value: 'top',
-      text: '从顶部',
-    },
-  ],
+export let selectOptions = () => {
+  return {
+    cors: [
+      {
+        value: 'false',
+        text: $lang('关闭（所有跨域请求将依赖 codetabs，限制 5 请求/秒）'),
+      },
+      {
+        value: 'true',
+        text: $lang('开启（请阅读右侧说明）'),
+      },
+    ],
+    face: [
+      {
+        value: 'false',
+        text: $lang('不显示'),
+      },
+      {
+        value: 'gift',
+        text: $lang('仅对礼物显示，不需要额外调用 API'),
+      },
+      {
+        value: 'true',
+        text: $lang('显示，通过 Bilibili API 获取（跨域）'),
+      },
+      {
+        value: 'imjad',
+        text: $lang('显示，通过 HibiAPI 获取'),
+      },
+    ],
+    display: [
+      {
+        value: 'bottom',
+        text: $lang('自底部'),
+      },
+      {
+        value: 'top',
+        text: $lang('从顶部'),
+      },
+    ],
+  };
 };
-Object.freeze(selectOptions);
+// Object.freeze(selectOptions);
 
 export const parseProps = qs =>
   mapValues(
