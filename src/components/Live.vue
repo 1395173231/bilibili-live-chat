@@ -137,6 +137,40 @@ export default {
         else addDanmaku(danmaku);
       });
 
+      // 进入房间
+      live.on('WELCOME', ({ data: { uid, uname, medal_info: medalInfo } }) => {
+        if (isBlockedUID(uid)) {
+          console.log(`屏蔽了来自[${uname}]的进入房间`);
+          return;
+        }
+        const danmaku = {
+          type: 'welcome',
+          showFace: giftShowFace.value,
+          uid,
+          uname,
+          medalInfo,
+        };
+        if (props.delay > 0) setTimeout(() => addDanmaku(danmaku), props.delay * 1000);
+        else addDanmaku(danmaku);
+      });
+
+      // 舰长
+      live.on('ANCHOR_LOT_CHECK', ({ data: { uid, uname, medal_info: medalInfo } }) => {
+        if (isBlockedUID(uid)) {
+          console.log(`屏蔽了来自[${uname}]的舰长`);
+          return;
+        }
+        const danmaku = {
+          type: 'guard',
+          showFace: giftShowFace.value,
+          uid,
+          uname,
+          medalInfo,
+        };
+        if (props.delay > 0) setTimeout(() => addDanmaku(danmaku), props.delay * 1000);
+        else addDanmaku(danmaku);
+      });
+
       // SC
       live.on('SUPER_CHAT_MESSAGE', async fullData => {
         console.log('SUPER_CHAT_MESSAGE', fullData);

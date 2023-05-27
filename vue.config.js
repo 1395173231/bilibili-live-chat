@@ -10,6 +10,10 @@ module.exports = {
       entry: 'src/pages/live/main.js',
       chunks: ['chunk-common', 'chunk-live-vendors', 'live'],
     },
+    translate: {
+        entry: 'src/pages/translate/main.js',
+        chunks: ['chunk-common', 'chunk-translate-vendors', 'translate'],
+    }
   },
   chainWebpack: config => {
     const pageKeys = Object.keys(module.exports.pages);

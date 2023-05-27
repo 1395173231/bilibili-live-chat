@@ -1,5 +1,5 @@
 import '@/utils/bufferPolyfill';
-import { createApp } from 'vue';
+import Vue, { createApp } from 'vue';
 import elementPlus from 'element-plus';
 // import 'element-plus/theme-chalk/dark/css-vars.css';
 import 'element-plus/dist/index.css';
