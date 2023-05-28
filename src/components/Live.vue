@@ -99,7 +99,6 @@ export default {
                     console.log(`屏蔽了来自[${uname}]的礼物：${giftName}*${num}`);
                     return;
                 }
-                addToQueue("感谢" + uname + "赠送的" + num + "个" + giftName)
                 setFace(uid, face);
                 if (props.giftComb) {
                     const key = `${uid}-${giftName}`;
@@ -120,11 +119,13 @@ export default {
                             num,
                         });
                         setTimeout(() => {
+                            addToQueue("感谢" + giftCombMap.get(key).uname + "赠送的" + giftCombMap.get(key).num + "个" + giftCombMap.get(key).giftName)
                             giftList.value.addDanmaku(giftCombMap.get(key));
                             giftCombMap.delete(key);
                         }, props.giftComb);
                     }
                 } else {
+                    addToQueue("感谢" + uname + "赠送的" + num + "个" + giftName)
                     giftList.value.addDanmaku({
                         type: 'gift',
                         showFace: props.face !== 'false',
