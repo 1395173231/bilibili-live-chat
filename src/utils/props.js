@@ -20,6 +20,7 @@ export const defaultProps = {
   translateFrom: '',
   corsProxyUrl: '',
   translateTo: 'PT-BR',
+  volume:50
 };
 Object.freeze(defaultProps);
 
